@@ -384,3 +384,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 1
+  enableRotation: 1
+  disableRotation: 0
