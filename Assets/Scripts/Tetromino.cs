@@ -30,6 +30,10 @@ public class Tetromino : MonoBehaviour {
 			if (!CheckIsValidPosition ()) {
 				transform.position += new Vector3 (-1, 0, 0);
 			}
+            else
+            {
+                FindObjectOfType<Game>().UpdateGrid(this);
+            }
 		} 
 
 		else if (Input.GetKeyDown (KeyCode.LeftArrow)) 
@@ -38,7 +42,11 @@ public class Tetromino : MonoBehaviour {
 			if (!CheckIsValidPosition ()) {
 				transform.position += new Vector3 (1, 0, 0);
 			}
-		} 
+            else
+            {
+                FindObjectOfType<Game>().UpdateGrid(this);
+            }
+        } 
 
 		else if (Input.GetKeyDown (KeyCode.UpArrow)) 
 		{
@@ -77,8 +85,12 @@ public class Tetromino : MonoBehaviour {
 					{
 						transform.Rotate (0, 0, -90);
 					}
-				} 
-			}
+				}
+                else
+                {
+                    FindObjectOfType<Game>().UpdateGrid(this);
+                }
+            }
 		}
 
         else if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time - fall >= fallSpeed)
@@ -89,7 +101,14 @@ public class Tetromino : MonoBehaviour {
 			if (!CheckIsValidPosition())
 			{
 				transform.position += new Vector3(0, 1, 0);
+                enabled = false;
+                FindObjectOfType<Game>().GenerateNext();
+                FindObjectOfType<Game>().DeleteRow();
 			}
+            else
+            {
+                FindObjectOfType<Game>().UpdateGrid(this);
+            }
         }
     }
 
@@ -99,6 +118,10 @@ public class Tetromino : MonoBehaviour {
         {
             Vector2 pos = FindObjectOfType<Game>().Round(mino.position);
             if (FindObjectOfType<Game>().CheckIsInsideGrid(pos) == false)
+            {
+                return false;
+            }
+            if(FindObjectOfType<Game>().GetTransformAtGrid(pos) != null && FindObjectOfType<Game>().GetTransformAtGrid(pos).parent != transform)
             {
                 return false;
             }

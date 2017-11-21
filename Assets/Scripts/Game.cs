@@ -8,10 +8,12 @@ public class Game : MonoBehaviour {
     public static int gridHeight= 22;
     public static int gridWidth = 10;
 
+    public static Transform[,] grid = new Transform[gridWidth, gridHeight];
+
 	// Use this for initialization
 	void Start () 
 	{
-		generateNext();
+		GenerateNext();
 	}
 	
 	// Update is called once per frame
@@ -20,7 +22,93 @@ public class Game : MonoBehaviour {
 		
 	}
 
-	public void generateNext()
+    public bool IsRowFull(int y)
+    {
+        for(int i = 0; i < gridWidth; ++i)
+        {
+            if(grid[i,y] == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void DeleteMino(int y)
+    {
+        for (int i = 0; i < gridWidth; ++i)
+        {
+            Destroy(grid[i, y].gameObject);
+            grid[i, y] = null;
+        }
+    }
+
+    public void MoveRowsDown(int y)
+    {
+        for (int i = 0; i < gridWidth; ++i)
+        {
+            if(grid[i,y] != null)
+            {
+                grid[i, y - 1] = grid[i, y];
+                grid[i, y] = null;
+                grid[i, y - 1].position += new Vector3(0, -1, 0);
+            }
+        }
+    }
+
+    public void MoveAllRowsDown(int y)
+    {
+        for(int j = y; j < gridHeight; ++j)
+        {
+            MoveRowsDown(j);
+        }
+    }
+
+    public void DeleteRow()
+    {
+        for (int i = 0; i < gridHeight; ++i)
+        {
+            if(IsRowFull(i))
+            {
+                DeleteMino(i);
+                MoveAllRowsDown(i + 1);
+                --i;
+            }
+        }
+    }
+
+    public void UpdateGrid(Tetromino tetro)
+    {
+        for(int i = 0; i < gridHeight; i++)
+        {
+            for(int j = 0; j < gridWidth; j++)
+            {
+                if(grid[j,i] != null && grid[j,i].parent == tetro.transform)
+                {
+                    grid[j, i] = null;
+                }
+            }
+        }
+        foreach (Transform mino in tetro.transform)
+        {
+            Vector2 pos = Round(mino.position);
+            if(pos.y < gridHeight)
+            {
+                grid[(int)pos.x, (int)pos.y] = mino;
+            }
+        }
+    }
+
+    public Transform GetTransformAtGrid(Vector2 pos)
+    {
+        if(pos.y > gridHeight - 1)
+        {
+            return null;
+        }
+        return grid[(int)pos.x, (int)pos.y];
+    }
+
+	public void GenerateNext()
 	{
 		GameObject instance = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 5)], typeof(GameObject)), new Vector3(5.0f, 20.0f, -3.0f), Quaternion.identity);
 	}
