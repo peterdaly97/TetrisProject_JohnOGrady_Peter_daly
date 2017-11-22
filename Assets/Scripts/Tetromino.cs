@@ -104,6 +104,10 @@ public class Tetromino : MonoBehaviour {
                 enabled = false;
                 FindObjectOfType<Game>().GenerateNext();
                 FindObjectOfType<Game>().DeleteRow();
+                if(FindObjectOfType<Game>().CheckAboveGrid(this))
+                {
+                    FindObjectOfType<Game>().GameOver();
+                }
 			}
             else
             {

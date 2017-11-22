@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
 
 	string[] names = {"Prefabs/Tetromino_T", "Prefabs/Tetromino_I", "Prefabs/Tetromino_J", "Prefabs/Tetromino_bs", "Prefabs/Tetromino_s", "Prefabs/Tetromino_Sq"};
-    public static int gridHeight= 22;
+    public static int gridHeight= 20;
     public static int gridWidth = 10;
 
     public static Transform[,] grid = new Transform[gridWidth, gridHeight];
@@ -21,6 +22,22 @@ public class Game : MonoBehaviour {
 	{
 		
 	}
+
+    public bool CheckAboveGrid(Tetromino tetro)
+    {
+        for(int i = 0; i < gridWidth; ++i)
+        {
+            foreach (Transform mino in tetro.transform)
+            {
+                Vector2 pos = Round(mino.position);
+                if(pos.y > gridHeight - 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public bool IsRowFull(int y)
     {
@@ -110,7 +127,7 @@ public class Game : MonoBehaviour {
 
 	public void GenerateNext()
 	{
-		GameObject instance = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 5)], typeof(GameObject)), new Vector3(5.0f, 20.0f, -3.0f), Quaternion.identity);
+		GameObject instance = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 5)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
 	}
 
     public bool CheckIsInsideGrid(Vector2 position)
@@ -121,5 +138,10 @@ public class Game : MonoBehaviour {
     public Vector2 Round(Vector2 pos)
     {
         return new Vector2(Mathf.Round(pos.x), Mathf.Round(pos.y));
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
