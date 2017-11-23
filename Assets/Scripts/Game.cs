@@ -127,7 +127,7 @@ public class Game : MonoBehaviour {
 
 	public void GenerateNext()
 	{
-		GameObject instance = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 5)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
+		GameObject instance = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
 	}
 
     public bool CheckIsInsideGrid(Vector2 position)
