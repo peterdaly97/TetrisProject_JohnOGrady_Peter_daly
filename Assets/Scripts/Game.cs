@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
@@ -10,17 +11,31 @@ public class Game : MonoBehaviour {
     public static int gridWidth = 10;
 
     public static Transform[,] grid = new Transform[gridWidth, gridHeight];
+	public int[] scores = { 100, 200, 400, 800 };
+	private int rowCount = 0;
+	private int userScore = 0;
+	public Text display_score;
 
 	// Use this for initialization
 	void Start () 
 	{
 		GenerateNext();
 	}
-	
+		
+	public void UpdateScore()
+	{
+		if (rowCount > 0) 
+		{
+			userScore += scores [(rowCount - 1)];
+			display_score.text = userScore.ToString ();
+			rowCount = 0;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		UpdateScore ();	
 	}
 
     public bool CheckAboveGrid(Tetromino tetro)
@@ -48,6 +63,7 @@ public class Game : MonoBehaviour {
                 return false;
             }
         }
+		rowCount++;
         return true;
     }
 
