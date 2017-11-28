@@ -16,6 +16,13 @@ public class Game : MonoBehaviour {
 	private int userScore = 0;
 	public Text display_score;
 
+    private GameObject nextTetro;
+    private GameObject previewTetro;
+
+    private bool gameStart = false;
+
+    private Vector3 previewPos = new Vector3(-6.5f, 15, -3);
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -143,7 +150,22 @@ public class Game : MonoBehaviour {
 
 	public void GenerateNext()
 	{
-		GameObject instance = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
+        if(!gameStart)
+        {
+            gameStart = true;
+            nextTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
+            previewTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), previewPos, Quaternion.identity);
+            previewTetro.GetComponent<Tetromino>().enabled = false;
+        }
+        else
+        {
+            previewTetro.transform.localPosition = new Vector3(5.0f, 22.0f, -3.0f);
+            nextTetro = previewTetro;
+            nextTetro.GetComponent<Tetromino>().enabled = true;
+            previewTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), previewPos, Quaternion.identity);
+            previewTetro.GetComponent<Tetromino>().enabled = false;
+        }
+		
 	}
 
     public bool CheckIsInsideGrid(Vector2 position)
