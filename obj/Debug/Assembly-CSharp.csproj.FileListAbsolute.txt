@@ -63,3 +63,4 @@ C:\Users\gameuser\Desktop\TetrisProject_JohnOGrady_Peter_daly\Temp\bin\Debug\Uni
 C:\Users\gameuser\Desktop\TetrisProject_JohnOGrady_Peter_daly\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\gameuser\Desktop\TetrisProject_JohnOGrady_Peter_daly\obj\Debug\Assembly-CSharp.dll
 C:\Users\gameuser\Desktop\TetrisProject_JohnOGrady_Peter_daly\obj\Debug\Assembly-CSharp.pdb
+C:\Users\gameuser\Desktop\TetrisProject_JohnOGrady_Peter_daly\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

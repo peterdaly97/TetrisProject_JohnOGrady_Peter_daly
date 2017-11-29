@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tetromino : MonoBehaviour {
 
-    float fall = 0;
+    float fall = 0.5f;
     public float fallSpeed = 1;
 
 	public bool enableRotation = true;
 	public bool disableRotation = false;
+    public Scene scene;
 
 	// Use this for initialization
 	void Start () 
 	{
-	    
+        scene = SceneManager.GetActiveScene();
+	    if(scene.name == "Level2")
+        {
+            fall = 0.3f;
+        }
 	}
 
 	// Update is called once per frame
@@ -93,13 +99,18 @@ public class Tetromino : MonoBehaviour {
             }
 		}
 
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time - fall >= fallSpeed)
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time >= fallSpeed)
         {
             transform.position += new Vector3(0, -1, 0);
-            fall = Time.time;
+            fallSpeed = Time.time + fall;
 
 			if (!CheckIsValidPosition())
 			{
+                if(this.tag == "bomb")
+                {
+                    FindObjectOfType<Game>().Bomb(this);
+                }
+
 				transform.position += new Vector3(0, 1, 0);
                 enabled = false;
                 FindObjectOfType<Game>().GenerateNext();
@@ -133,4 +144,8 @@ public class Tetromino : MonoBehaviour {
         }
         return true;
     }
+
+   
 }
+
+

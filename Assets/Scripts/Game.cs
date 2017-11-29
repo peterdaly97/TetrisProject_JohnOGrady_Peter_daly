@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
 
-	string[] names = {"Prefabs/Tetromino_T", "Prefabs/Tetromino_I", "Prefabs/Tetromino_J", "Prefabs/Tetromino_bs", "Prefabs/Tetromino_s", "Prefabs/Tetromino_Sq"};
+	string[] names = {"Prefabs/Tetromino_T", "Prefabs/Tetromino_I", "Prefabs/Tetromino_J", "Prefabs/Tetromino_bs", "Prefabs/Tetromino_s", "Prefabs/Tetromino_Sq", "Prefabs/Tetromino_L", "Prefabs/Bomb" };
     public static int gridHeight= 20;
     public static int gridWidth = 10;
 
@@ -22,11 +22,19 @@ public class Game : MonoBehaviour {
     private bool gameStart = false;
 
     private Vector3 previewPos = new Vector3(-6.5f, 15, -3);
+    public Scene scene;
+    private int range = 7;
+    
 
 	// Use this for initialization
 	void Start () 
 	{
-		GenerateNext();
+        scene = SceneManager.GetActiveScene();
+        if (scene.name == "Level2")
+        {
+            range = 8;
+        }
+            GenerateNext();
 	}
 		
 	public void UpdateScore()
@@ -41,8 +49,8 @@ public class Game : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () 
-	{
-		UpdateScore ();	
+	{     
+        UpdateScore ();	
 	}
 
     public bool CheckAboveGrid(Tetromino tetro)
@@ -92,6 +100,81 @@ public class Game : MonoBehaviour {
                 grid[i, y - 1] = grid[i, y];
                 grid[i, y] = null;
                 grid[i, y - 1].position += new Vector3(0, -1, 0);
+            }
+        }
+    }
+
+    public void Bomb(Tetromino tetro)
+    {
+        Transform mino = tetro.transform;
+        Vector2 pos = Round(mino.position);
+
+        if(grid[(int)pos.x, (int)pos.y] != null)
+        {
+            Destroy(grid[(int)pos.x, (int)pos.y].gameObject);
+        }
+
+        if ((int)pos.x < gridWidth)
+        {
+            if (grid[(int)pos.x + 1, (int)pos.y] != null)
+            {
+                Destroy(grid[(int)pos.x + 1, (int)pos.y].gameObject);
+            }
+        }
+
+        if ((int)pos.x < gridWidth && (int)pos.y < gridHeight)
+        {
+            if (grid[(int)pos.x + 1, (int)pos.y + 1] != null)
+            {
+                Destroy(grid[(int)pos.x + 1, (int)pos.y + 1].gameObject);
+            }
+        }
+
+        if ((int)pos.x < gridWidth && (int)pos.y > 0)
+        {
+            if (grid[(int)pos.x + 1, (int)pos.y - 1] != null)
+            {
+                Destroy(grid[(int)pos.x + 1, (int)pos.y - 1].gameObject);
+            }
+        }
+
+        if ((int)pos.x > 0)
+        {
+            if (grid[(int)pos.x - 1, (int)pos.y] != null)
+            {
+                Destroy(grid[(int)pos.x - 1, (int)pos.y].gameObject);
+            }
+        }
+
+        if ((int)pos.y < gridHeight)
+        {
+            if (grid[(int)pos.x, (int)pos.y + 1] != null)
+            {
+                Destroy(grid[(int)pos.x, (int)pos.y + 1].gameObject);
+            }
+        }
+
+        if ((int)pos.y > 0)
+        {
+            if (grid[(int)pos.x, (int)pos.y - 1] != null)
+            {
+                Destroy(grid[(int)pos.x, (int)pos.y - 1].gameObject);
+            }
+        }
+
+        if ((int)pos.x > 0 && (int)pos.y < gridHeight)
+        {
+            if (grid[(int)pos.x - 1, (int)pos.y + 1] != null)
+            {
+                Destroy(grid[(int)pos.x - 1, (int)pos.y + 1].gameObject);
+            }
+        }
+
+        if ((int)pos.x > 0 && (int)pos.y > 0)
+        {
+            if (grid[(int)pos.x - 1, (int)pos.y - 1] != null)
+            {
+                Destroy(grid[(int)pos.x - 1, (int)pos.y - 1].gameObject);
             }
         }
     }
@@ -153,8 +236,8 @@ public class Game : MonoBehaviour {
         if(!gameStart)
         {
             gameStart = true;
-            nextTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
-            previewTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), previewPos, Quaternion.identity);
+            nextTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, range)], typeof(GameObject)), new Vector3(5.0f, 22.0f, -3.0f), Quaternion.identity);
+            previewTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, range)], typeof(GameObject)), previewPos, Quaternion.identity);
             previewTetro.GetComponent<Tetromino>().enabled = false;
         }
         else
@@ -162,7 +245,7 @@ public class Game : MonoBehaviour {
             previewTetro.transform.localPosition = new Vector3(5.0f, 22.0f, -3.0f);
             nextTetro = previewTetro;
             nextTetro.GetComponent<Tetromino>().enabled = true;
-            previewTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, 6)], typeof(GameObject)), previewPos, Quaternion.identity);
+            previewTetro = (GameObject)Instantiate(Resources.Load(names[Random.Range(0, range)], typeof(GameObject)), previewPos, Quaternion.identity);
             previewTetro.GetComponent<Tetromino>().enabled = false;
         }
 		
