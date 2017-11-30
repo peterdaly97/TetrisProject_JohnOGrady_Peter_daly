@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33521012432498608}
   - component: {fileID: 65029457848332548}
   - component: {fileID: 23862725182395190}
+  - component: {fileID: 114014021667587534}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 33927401279544778}
   - component: {fileID: 65430338119595254}
   - component: {fileID: 23951939532149358}
+  - component: {fileID: 114873623513119780}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -58,6 +60,7 @@ GameObject:
   - component: {fileID: 33798396519491082}
   - component: {fileID: 65881234676133270}
   - component: {fileID: 23056757903459028}
+  - component: {fileID: 114853168619981332}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -92,6 +95,7 @@ GameObject:
   - component: {fileID: 33910982911418206}
   - component: {fileID: 65452163410196808}
   - component: {fileID: 23057887090698454}
+  - component: {fileID: 114830463507556058}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -372,6 +376,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114014021667587534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161301372544098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0199f226b33ba204da385c8be1728d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion_effect: {fileID: 198098689666919150, guid: 71268e70c947f614caba573eb25b2f32,
+    type: 2}
 --- !u!114 &114321458723371760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,3 +403,42 @@ MonoBehaviour:
   fallSpeed: 1
   enableRotation: 1
   disableRotation: 0
+--- !u!114 &114830463507556058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1968241131604588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0199f226b33ba204da385c8be1728d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion_effect: {fileID: 198098689666919150, guid: 71268e70c947f614caba573eb25b2f32,
+    type: 2}
+--- !u!114 &114853168619981332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1617169103558608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0199f226b33ba204da385c8be1728d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion_effect: {fileID: 198098689666919150, guid: 71268e70c947f614caba573eb25b2f32,
+    type: 2}
+--- !u!114 &114873623513119780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500042734009696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0199f226b33ba204da385c8be1728d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion_effect: {fileID: 198098689666919150, guid: 71268e70c947f614caba573eb25b2f32,
+    type: 2}

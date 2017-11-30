@@ -144,8 +144,6 @@ public class Tetromino : MonoBehaviour {
         }
         return true;
     }
-
-   
 }
 
 
