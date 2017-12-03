@@ -11,11 +11,16 @@ public class Tetromino : MonoBehaviour {
 	public bool enableRotation = true;
 	public bool disableRotation = false;
     public Scene scene;
+	public AudioClip moveEffect;
+	public AudioClip landEffect;
+
+	private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () 
 	{
         scene = SceneManager.GetActiveScene();
+		audioSource = GetComponent<AudioSource> ();
 	    if(scene.name == "Level2")
         {
             fall = 0.3f;
@@ -38,6 +43,7 @@ public class Tetromino : MonoBehaviour {
 			}
             else
             {
+				MovementSound ();
                 FindObjectOfType<Game>().UpdateGrid(this);
             }
 		} 
@@ -50,6 +56,7 @@ public class Tetromino : MonoBehaviour {
 			}
             else
             {
+				MovementSound ();
                 FindObjectOfType<Game>().UpdateGrid(this);
             }
         } 
@@ -94,6 +101,7 @@ public class Tetromino : MonoBehaviour {
 				}
                 else
                 {
+					MovementSound ();
                     FindObjectOfType<Game>().UpdateGrid(this);
                 }
             }
@@ -110,7 +118,7 @@ public class Tetromino : MonoBehaviour {
                 {
                     FindObjectOfType<Game>().Bomb(this);
                 }
-
+				LandingSound ();
 				transform.position += new Vector3(0, 1, 0);
                 enabled = false;
                 FindObjectOfType<Game>().GenerateNext();
@@ -125,7 +133,46 @@ public class Tetromino : MonoBehaviour {
                 FindObjectOfType<Game>().UpdateGrid(this);
             }
         }
+
+		else if (Input.GetKeyDown(KeyCode.Space) || Time.time >= fallSpeed)
+		{
+			transform.position += new Vector3(0, -1, 0);
+			fallSpeed = Time.time + fall;
+
+			if (!CheckIsValidPosition())
+			{
+				if(this.tag == "bomb")
+				{
+					FindObjectOfType<Game>().Bomb(this);
+				}
+
+				transform.position += new Vector3(0, 1, 0);
+				enabled = false;
+				FindObjectOfType<Game>().GenerateNext();
+				FindObjectOfType<Game>().DeleteRow();
+				if(FindObjectOfType<Game>().CheckAboveGrid(this))
+				{
+					FindObjectOfType<Game>().GameOver();
+				}
+			}
+			else
+			{
+				FindObjectOfType<Game>().UpdateGrid(this);
+			}
+		}
     }
+
+	/// <summary>
+	/// plays a small audio sound whenever the block is rotated our moved
+	/// </summary>
+	void MovementSound()
+	{
+		audioSource.PlayOneShot (moveEffect);
+	}
+	void LandingSound()
+	{
+		audioSource.PlayOneShot (landEffect);
+	}
 
     bool CheckIsValidPosition()
     {
