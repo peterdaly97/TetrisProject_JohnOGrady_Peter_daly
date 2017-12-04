@@ -130,6 +130,7 @@ public class Tetromino : MonoBehaviour {
 			}
             else
             {
+				MovementSound ();
                 FindObjectOfType<Game>().UpdateGrid(this);
             }
         }
