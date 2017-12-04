@@ -114,12 +114,12 @@ public class Tetromino : MonoBehaviour {
 
 			if (!CheckIsValidPosition())
 			{
-                if(this.tag == "bomb")
+                transform.position += new Vector3(0, 1, 0);
+                if (this.tag == "bomb")
                 {
                     FindObjectOfType<Game>().Bomb(this);
                 }
 				LandingSound ();
-				transform.position += new Vector3(0, 1, 0);
                 enabled = false;
                 FindObjectOfType<Game>().GenerateNext();
                 FindObjectOfType<Game>().DeleteRow();
@@ -135,32 +135,31 @@ public class Tetromino : MonoBehaviour {
             }
         }
 
-		else if (Input.GetKeyDown(KeyCode.Space) || Time.time >= fallSpeed)
+		else if (Input.GetKeyDown(KeyCode.Space))
 		{
-			transform.position += new Vector3(0, -1, 0);
-			fallSpeed = Time.time + fall;
-
-			if (!CheckIsValidPosition())
-			{
-				if(this.tag == "bomb")
-				{
-					FindObjectOfType<Game>().Bomb(this);
-				}
-
-				transform.position += new Vector3(0, 1, 0);
-				enabled = false;
-				FindObjectOfType<Game>().GenerateNext();
-				FindObjectOfType<Game>().DeleteRow();
-				if(FindObjectOfType<Game>().CheckAboveGrid(this))
-				{
-					FindObjectOfType<Game>().GameOver();
-				}
-			}
-			else
-			{
-				FindObjectOfType<Game>().UpdateGrid(this);
-			}
-		}
+            while (CheckIsValidPosition())
+            {
+                transform.position += new Vector3(0, -1, 0);                                   
+            }
+            if (!CheckIsValidPosition())
+            {
+                transform.position += new Vector3(0, 1, 0);
+                FindObjectOfType<Game>().UpdateGrid(this);
+                if (this.tag == "bomb")
+                {
+                    FindObjectOfType<Game>().Bomb(this);
+                }
+                enabled = false;
+                FindObjectOfType<Game>().GenerateNext();
+                FindObjectOfType<Game>().DeleteRow();
+                if (FindObjectOfType<Game>().CheckAboveGrid(this))
+                {
+                    FindObjectOfType<Game>().GameOver();
+                }
+            }
+            FindObjectOfType<Game>().UpdateGrid(this);
+            MovementSound();
+        }
     }
 
 	/// <summary>

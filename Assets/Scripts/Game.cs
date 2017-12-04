@@ -114,7 +114,7 @@ public class Game : MonoBehaviour {
             Destroy(grid[(int)pos.x, (int)pos.y].gameObject);
         }
 
-        if ((int)pos.x < gridWidth)
+        if ((int)pos.x < gridWidth - 1)
         {
             if (grid[(int)pos.x + 1, (int)pos.y] != null)
             {
@@ -122,7 +122,7 @@ public class Game : MonoBehaviour {
             }
         }
 
-        if ((int)pos.x < gridWidth && (int)pos.y < gridHeight)
+        if ((int)pos.x < gridWidth - 1 && (int)pos.y < gridHeight)
         {
             if (grid[(int)pos.x + 1, (int)pos.y + 1] != null)
             {
@@ -130,7 +130,7 @@ public class Game : MonoBehaviour {
             }
         }
 
-        if ((int)pos.x < gridWidth && (int)pos.y > 0)
+        if ((int)pos.x < gridWidth - 1 && (int)pos.y > 0)
         {
             if (grid[(int)pos.x + 1, (int)pos.y - 1] != null)
             {
