@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CubeCode.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\Level1.cs" />
      <Compile Include="Assets\Scripts\Level2.cs" />
      <Compile Include="Assets\Scripts\PlayAgain.cs" />
      <Compile Include="Assets\Scripts\Tetromino.cs" />

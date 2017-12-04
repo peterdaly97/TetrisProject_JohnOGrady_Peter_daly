@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Level2 : MonoBehaviour {
-
+	// single script to launch the scene corresponding to the first level of the game
 	public void LoadGame()
     {
         SceneManager.LoadScene("Level2");

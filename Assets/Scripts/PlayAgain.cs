@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayAgain : MonoBehaviour
 {
+	// single script to launch the scene corresponding to go to the start of the game
     public void LoadGame()
     {
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene("startGame");
     }
 }

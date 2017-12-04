@@ -1,9 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tetromino.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CubeCode.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game.cs" Line="14" Column="47" />
-      <File FileName="Assets\Scripts\Tetromino.cs" Line="152" Column="37" />
+      <File FileName="Assets\Scripts\Game.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Tetromino.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayAgain.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Level2.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Level1.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CubeCode.cs" Line="19" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -10,9 +10,9 @@ public class Tetromino : MonoBehaviour {
 
 	public bool enableRotation = true;
 	public bool disableRotation = false;
-    public Scene scene;
-	public AudioClip moveEffect;
-	public AudioClip landEffect;
+    public Scene scene; // used to check which scene it's on so we can adjust speed
+	public AudioClip moveEffect; // sound for when the mino moves
+	public AudioClip landEffect; // pop sound when the mino lands in to place
 
 	private AudioSource audioSource;
 
@@ -34,7 +34,7 @@ public class Tetromino : MonoBehaviour {
 
     void CheckInput()
     {
-
+		// right directional movement with grid detection
 		if (Input.GetKeyDown (KeyCode.RightArrow)) 
 		{
 			transform.position += new Vector3 (1, 0, 0);
@@ -48,6 +48,7 @@ public class Tetromino : MonoBehaviour {
             }
 		} 
 
+		// left directional movement with grid detection, if the step would put it out of the grid reverse the rotation
 		else if (Input.GetKeyDown (KeyCode.LeftArrow)) 
 		{
 			transform.position += new Vector3 (-1, 0, 0);
@@ -61,6 +62,7 @@ public class Tetromino : MonoBehaviour {
             }
         } 
 
+		// rotation algortithim making sure that rotation on any point of the minos will ensure the piece will be within the grid
 		else if (Input.GetKeyDown (KeyCode.UpArrow)) 
 		{
 			if (enableRotation) 
@@ -141,24 +143,30 @@ public class Tetromino : MonoBehaviour {
             {
                 transform.position += new Vector3(0, -1, 0);                                   
             }
-            if (!CheckIsValidPosition())
-            {
-                transform.position += new Vector3(0, 1, 0);
-                FindObjectOfType<Game>().UpdateGrid(this);
-                if (this.tag == "bomb")
-                {
-                    FindObjectOfType<Game>().Bomb(this);
-                }
-                enabled = false;
-                FindObjectOfType<Game>().GenerateNext();
-                FindObjectOfType<Game>().DeleteRow();
-                if (FindObjectOfType<Game>().CheckAboveGrid(this))
-                {
-                    FindObjectOfType<Game>().GameOver();
-                }
-            }
-            FindObjectOfType<Game>().UpdateGrid(this);
-            MovementSound();
+
+			if (!CheckIsValidPosition ()) 
+			{
+				transform.position += new Vector3 (0, 1, 0);
+				FindObjectOfType<Game> ().UpdateGrid (this);
+				if (this.tag == "bomb") 
+				{
+					FindObjectOfType<Game> ().Bomb (this);
+				}
+
+				LandingSound ();
+				enabled = false;
+				FindObjectOfType<Game> ().GenerateNext ();
+				FindObjectOfType<Game> ().DeleteRow ();
+				if (FindObjectOfType<Game> ().CheckAboveGrid (this)) 
+				{
+					FindObjectOfType<Game> ().GameOver ();
+				}
+			} 
+
+			else 
+			{
+				FindObjectOfType<Game> ().UpdateGrid (this);
+			}
         }
     }
 

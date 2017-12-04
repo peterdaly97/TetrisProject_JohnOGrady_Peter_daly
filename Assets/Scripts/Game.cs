@@ -95,7 +95,7 @@ public class Game : MonoBehaviour {
     {
         for (int i = 0; i < gridWidth; ++i)
         {
-            if(grid[i,y] != null)
+			if(grid[i,y] != null)
             {
                 grid[i, y - 1] = grid[i, y];
                 grid[i, y] = null;
